@@ -40,6 +40,13 @@ interface Employee {
   status: "active" | "inactive" | "on-leave";
 }
 
+// Add props interface to accept the handlers from parent component
+interface EmployeeListProps {
+  onEditEmployee?: (employeeId: number) => void;
+  onDeleteEmployee?: (employeeId: number) => void;
+  onChangeRole?: (employeeId: number, newRole: string) => void;
+}
+
 const EMPLOYEES_DATA: Employee[] = [
   {
     id: 1,
@@ -93,7 +100,7 @@ const EMPLOYEES_DATA: Employee[] = [
   }
 ];
 
-export function EmployeeList() {
+export function EmployeeList({ onEditEmployee, onDeleteEmployee, onChangeRole }: EmployeeListProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [employees] = useState<Employee[]>(EMPLOYEES_DATA);
 
@@ -113,6 +120,20 @@ export function EmployeeList() {
         return "bg-amber-500/10 text-amber-600 hover:bg-amber-500/20";
       default:
         return "";
+    }
+  };
+
+  // Handle edit action
+  const handleEdit = (employeeId: number) => {
+    if (onEditEmployee) {
+      onEditEmployee(employeeId);
+    }
+  };
+
+  // Handle delete action
+  const handleDelete = (employeeId: number) => {
+    if (onDeleteEmployee) {
+      onDeleteEmployee(employeeId);
     }
   };
 
@@ -195,11 +216,17 @@ export function EmployeeList() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem className="cursor-pointer">
+                        <DropdownMenuItem 
+                          className="cursor-pointer"
+                          onClick={() => handleEdit(employee.id)}
+                        >
                           <Edit2 className="h-4 w-4 mr-2" />
                           Muokkaa
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600">
+                        <DropdownMenuItem 
+                          className="cursor-pointer text-red-600 focus:text-red-600"
+                          onClick={() => handleDelete(employee.id)}
+                        >
                           <Trash2 className="h-4 w-4 mr-2" />
                           Poista
                         </DropdownMenuItem>
