@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Flag } from "lucide-react";
+import { FlagTriangleRight } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,12 +18,31 @@ interface LanguageOption {
   label: string;
   flag: string;
   iconColor: string;
+  flagFill: string;
 }
 
 const languages: LanguageOption[] = [
-  { value: "fi", label: "Suomi", flag: "🇫🇮", iconColor: "#003580" }, // Finnish blue
-  { value: "en", label: "English", flag: "🇬🇧", iconColor: "#012169" }, // UK blue
-  { value: "sv", label: "Svenska", flag: "🇸🇪", iconColor: "#006AA7" }, // Swedish blue
+  { 
+    value: "fi", 
+    label: "Suomi", 
+    flag: "🇫🇮", 
+    iconColor: "#003580", 
+    flagFill: "#FFFFFF" 
+  },
+  { 
+    value: "en", 
+    label: "English", 
+    flag: "🇬🇧", 
+    iconColor: "#012169", 
+    flagFill: "#FFFFFF" 
+  },
+  { 
+    value: "sv", 
+    label: "Svenska", 
+    flag: "🇸🇪", 
+    iconColor: "#006AA7", 
+    flagFill: "#FFCD00" 
+  },
 ];
 
 interface LanguageSelectorProps {
@@ -50,8 +69,11 @@ const LanguageSelector = ({ className }: LanguageSelectorProps) => {
           size="sm" 
           className={cn("flex items-center gap-2 h-9 px-2", className)}
         >
-          <Flag className="h-4 w-4" color={current.iconColor} />
-          <span className="text-lg">{current.flag}</span>
+          <FlagTriangleRight 
+            className="h-5 w-5" 
+            color={current.iconColor} 
+            fill={current.flagFill} 
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="bg-popover">
@@ -64,8 +86,12 @@ const LanguageSelector = ({ className }: LanguageSelectorProps) => {
               currentLanguage === language.value && "bg-muted font-medium"
             )}
           >
-            <Flag className="h-4 w-4" color={language.iconColor} />
-            <span className="text-lg">{language.flag}</span>
+            <FlagTriangleRight 
+              className="h-5 w-5" 
+              color={language.iconColor}
+              fill={language.flagFill}
+            />
+            <span className="text-sm">{language.label}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
