@@ -49,12 +49,10 @@ const LanguageSelector = ({ className }: LanguageSelectorProps) => {
           size="sm" 
           className={cn("flex items-center gap-2 h-9 px-2", className)}
         >
-          <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline-block">{current.flag} {current.label}</span>
-          <span className="sm:hidden">{current.flag}</span>
+          <span className="text-lg">{current.flag}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="bg-popover w-40">
+      <DropdownMenuContent align="end" className="bg-popover">
         {languages.map((language) => (
           <DropdownMenuItem
             key={language.value}
@@ -64,8 +62,7 @@ const LanguageSelector = ({ className }: LanguageSelectorProps) => {
               currentLanguage === language.value && "bg-muted font-medium"
             )}
           >
-            <span className="mr-2">{language.flag}</span>
-            {language.label}
+            <span className="text-lg">{language.flag}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
