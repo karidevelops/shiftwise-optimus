@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import LanguageSelector from "@/components/language/LanguageSelector";
 
 interface LayoutProps {
   children: ReactNode;
@@ -147,6 +148,7 @@ export default function Layout({ children }: LayoutProps) {
 
             {/* Right side actions */}
             <div className="flex items-center gap-3">
+              <LanguageSelector />
               <Button variant="ghost" size="icon" className="text-muted-foreground">
                 <BellRing className="h-5 w-5" />
               </Button>
