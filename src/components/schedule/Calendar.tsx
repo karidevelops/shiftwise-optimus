@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { format, startOfWeek, addDays, isSameDay } from "date-fns";
 import { ChevronLeft, ChevronRight, MoreHorizontal, Pencil, Trash, UserPlus } from "lucide-react";
@@ -20,7 +19,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   AlertDialog,
@@ -32,7 +30,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 
 interface Shift {
   id: number;
@@ -51,7 +48,6 @@ interface CalendarProps {
   onChangeEmployee?: (shiftId: number, newEmployeeId: number) => void;
 }
 
-// Sample employee data (you would typically fetch this from an API)
 const EMPLOYEES = [
   { id: 1, name: "Matti Virtanen", initials: "MV", role: "Sairaanhoitaja" },
   { id: 2, name: "Liisa Korhonen", initials: "LK", role: "Lääkäri" },
@@ -67,11 +63,9 @@ export function Calendar({ shifts = [], onEditShift, onDeleteShift, onChangeEmpl
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showChangeEmployeeDialog, setShowChangeEmployeeDialog] = useState(false);
   
-  // Generate dates for the current week
   const startOfCurrentWeek = startOfWeek(currentDate, { weekStartsOn: 1 });
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(startOfCurrentWeek, i));
   
-  // Navigate between weeks
   const goToPreviousWeek = () => {
     setCurrentDate(addDays(currentDate, -7));
   };
@@ -84,7 +78,6 @@ export function Calendar({ shifts = [], onEditShift, onDeleteShift, onChangeEmpl
     setCurrentDate(new Date());
   };
   
-  // Filter shifts for a specific day
   const getShiftsForDay = (date: Date) => {
     return shifts.filter(shift => {
       const shiftDate = new Date(shift.date);
@@ -92,14 +85,12 @@ export function Calendar({ shifts = [], onEditShift, onDeleteShift, onChangeEmpl
     });
   };
 
-  // Handle edit action
   const handleEditShift = (shift: Shift) => {
     if (onEditShift) {
       onEditShift(shift);
     }
   };
 
-  // Handle delete action
   const handleDeleteShift = () => {
     if (selectedShift && onDeleteShift) {
       onDeleteShift(selectedShift.id);
@@ -108,7 +99,6 @@ export function Calendar({ shifts = [], onEditShift, onDeleteShift, onChangeEmpl
     }
   };
 
-  // Handle change employee action
   const handleChangeEmployee = (employeeId: number) => {
     if (selectedShift && onChangeEmployee) {
       onChangeEmployee(selectedShift.id, employeeId);
@@ -182,17 +172,20 @@ export function Calendar({ shifts = [], onEditShift, onDeleteShift, onChangeEmpl
                                 time={shift.time}
                                 type={shift.type}
                               />
-                              <Button 
-                                variant="ghost" 
-                                size="icon" 
-                                className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setSelectedShift(shift);
-                                }}
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
+                              <div className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon"
+                                  className="h-8 w-8 p-0"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedShift(shift);
+                                    handleEditShift(shift);
+                                  }}
+                                >
+                                  <Pencil className="h-4 w-4" />
+                                </Button>
+                              </div>
                             </div>
                           </ContextMenuTrigger>
                           <ContextMenuContent>
@@ -241,7 +234,6 @@ export function Calendar({ shifts = [], onEditShift, onDeleteShift, onChangeEmpl
         </div>
       </ScrollArea>
 
-      {/* Delete Confirmation Dialog */}
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -259,7 +251,6 @@ export function Calendar({ shifts = [], onEditShift, onDeleteShift, onChangeEmpl
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Change Employee Dialog */}
       <Dialog open={showChangeEmployeeDialog} onOpenChange={setShowChangeEmployeeDialog}>
         <DialogContent>
           <DialogHeader>

@@ -76,7 +76,7 @@ export function ShiftCard({
             <p className="text-sm font-semibold truncate">{employeeName}</p>
             <p className="text-xs text-muted-foreground">{role}</p>
           </div>
-          <div className={cn("text-sm font-medium whitespace-nowrap", getTimeColor())}>
+          <div className={cn("text-sm font-medium whitespace-nowrap mr-6", getTimeColor())}>
             {time}
           </div>
         </div>
