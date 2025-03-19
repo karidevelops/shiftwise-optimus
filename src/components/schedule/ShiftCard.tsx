@@ -2,6 +2,8 @@
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Pencil } from "lucide-react";
 
 export type ShiftType = "morning" | "day" | "evening" | "night";
 
@@ -14,6 +16,7 @@ interface ShiftCardProps {
   type: ShiftType;
   isDragging?: boolean;
   onClick?: () => void;
+  onEdit?: () => void;
 }
 
 export function ShiftCard({
@@ -24,7 +27,8 @@ export function ShiftCard({
   time,
   type,
   isDragging = false,
-  onClick
+  onClick,
+  onEdit
 }: ShiftCardProps) {
   const getTypeStyles = () => {
     switch (type) {
@@ -76,9 +80,22 @@ export function ShiftCard({
             <p className="text-sm font-semibold truncate">{employeeName}</p>
             <p className="text-xs text-muted-foreground">{role}</p>
           </div>
-          <div className={cn("text-sm font-medium whitespace-nowrap mr-6", getTimeColor())}>
+          <div className={cn("text-sm font-medium whitespace-nowrap", getTimeColor())}>
             {time}
           </div>
+          {onEdit && (
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="h-8 w-8 p-0 ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit();
+              }}
+            >
+              <Pencil className="h-4 w-4" />
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

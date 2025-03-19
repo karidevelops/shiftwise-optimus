@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { format, startOfWeek, addDays, isSameDay } from "date-fns";
-import { ChevronLeft, ChevronRight, MoreHorizontal, Pencil, Trash, UserPlus } from "lucide-react";
+import { ChevronLeft, ChevronRight, UserPlus, Pencil, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ShiftCard, ShiftType } from "./ShiftCard";
@@ -171,21 +171,11 @@ export function Calendar({ shifts = [], onEditShift, onDeleteShift, onChangeEmpl
                                 role={shift.role}
                                 time={shift.time}
                                 type={shift.type}
+                                onEdit={() => {
+                                  setSelectedShift(shift);
+                                  handleEditShift(shift);
+                                }}
                               />
-                              <div className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <Button 
-                                  variant="ghost" 
-                                  size="icon"
-                                  className="h-8 w-8 p-0"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setSelectedShift(shift);
-                                    handleEditShift(shift);
-                                  }}
-                                >
-                                  <Pencil className="h-4 w-4" />
-                                </Button>
-                              </div>
                             </div>
                           </ContextMenuTrigger>
                           <ContextMenuContent>
