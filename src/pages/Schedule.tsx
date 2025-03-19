@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import { Calendar } from "@/components/schedule/Calendar";
 import { Button } from "@/components/ui/button";
@@ -6,10 +7,90 @@ import {
   Calendar as CalendarIcon, 
   ChevronDown, 
   UserPlus, 
-  Filter 
+  Filter,
+  List
 } from "lucide-react";
+import { AddShiftDialog } from "@/components/schedule/AddShiftDialog";
+import { EmployeeShiftList } from "@/components/schedule/EmployeeShiftList";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ShiftType } from "@/components/schedule/ShiftCard";
+
+// Define the shift interface
+interface Shift {
+  id: number;
+  employeeName: string;
+  employeeInitials: string;
+  role: string;
+  time: string;
+  type: ShiftType;
+  date: Date;
+}
 
 const Schedule = () => {
+  const [shifts, setShifts] = useState<Shift[]>([
+    {
+      id: 1,
+      employeeName: "Emma Johnson",
+      employeeInitials: "EJ",
+      role: "Nurse",
+      time: "6:00 - 14:00",
+      type: "morning",
+      date: new Date(2023, 5, 12)
+    },
+    {
+      id: 2,
+      employeeName: "Michael Chen",
+      employeeInitials: "MC",
+      role: "Doctor",
+      time: "9:00 - 17:00",
+      type: "day",
+      date: new Date(2023, 5, 12)
+    },
+    {
+      id: 3,
+      employeeName: "Sophia Rodriguez",
+      employeeInitials: "SR",
+      role: "Receptionist",
+      time: "14:00 - 22:00",
+      type: "evening",
+      date: new Date(2023, 5, 13)
+    },
+    {
+      id: 4,
+      employeeName: "James Wilson",
+      employeeInitials: "JW",
+      role: "Security",
+      time: "22:00 - 6:00",
+      type: "night",
+      date: new Date(2023, 5, 14)
+    },
+    {
+      id: 5,
+      employeeName: "Olivia Smith",
+      employeeInitials: "OS",
+      role: "Nurse",
+      time: "9:00 - 17:00",
+      type: "day",
+      date: new Date(2023, 5, 14)
+    },
+    {
+      id: 6,
+      employeeName: "Noah Garcia",
+      employeeInitials: "NG",
+      role: "Doctor",
+      time: "14:00 - 22:00",
+      type: "evening",
+      date: new Date(2023, 5, 15)
+    }
+  ]);
+  
+  const [isAddShiftOpen, setIsAddShiftOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<"calendar" | "list">("calendar");
+  
+  const handleAddShift = (newShift: Shift) => {
+    setShifts((prevShifts) => [...prevShifts, newShift]);
+  };
+
   return (
     <Layout>
       <div className="space-y-6 animate-fade-in">
@@ -25,19 +106,40 @@ const Schedule = () => {
               <Filter className="h-4 w-4 mr-2" />
               Suodata
             </Button>
-            <Button variant="outline" className="animate-button-click">
-              <CalendarIcon className="h-4 w-4 mr-2" />
-              Näkymä
-              <ChevronDown className="h-4 w-4 ml-1" />
-            </Button>
-            <Button className="ml-auto animate-button-click">
+            <Tabs 
+              value={viewMode} 
+              onValueChange={(value) => setViewMode(value as "calendar" | "list")}
+              className="inline-flex"
+            >
+              <TabsList className="h-10">
+                <TabsTrigger value="calendar" className="px-3">
+                  <CalendarIcon className="h-4 w-4 mr-2" />
+                  Kalenteri
+                </TabsTrigger>
+                <TabsTrigger value="list" className="px-3">
+                  <List className="h-4 w-4 mr-2" />
+                  Lista
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+            <Button 
+              className="ml-auto animate-button-click"
+              onClick={() => setIsAddShiftOpen(true)}
+            >
               <UserPlus className="h-4 w-4 mr-2" />
               Lisää vuoro
             </Button>
           </div>
         </div>
 
-        <Calendar />
+        <Tabs value={viewMode} className="space-y-6">
+          <TabsContent value="calendar" className="mt-0 space-y-6">
+            <Calendar shifts={shifts} />
+          </TabsContent>
+          <TabsContent value="list" className="mt-0 space-y-6">
+            <EmployeeShiftList shifts={shifts} />
+          </TabsContent>
+        </Tabs>
 
         <div className="bg-muted/50 rounded-lg p-4 border border-border">
           <p className="text-sm">
@@ -45,6 +147,12 @@ const Schedule = () => {
           </p>
         </div>
       </div>
+
+      <AddShiftDialog 
+        open={isAddShiftOpen} 
+        onOpenChange={setIsAddShiftOpen}
+        onAddShift={handleAddShift}
+      />
     </Layout>
   );
 };

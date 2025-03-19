@@ -7,65 +7,21 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ShiftCard, ShiftType } from "./ShiftCard";
 import { cn } from "@/lib/utils";
 
-// Sample shift data
-const SHIFT_DATA = [
-  {
-    id: 1,
-    employeeName: "Emma Johnson",
-    employeeInitials: "EJ",
-    role: "Nurse",
-    time: "6:00 - 14:00",
-    type: "morning" as ShiftType,
-    date: new Date(2023, 5, 12)
-  },
-  {
-    id: 2,
-    employeeName: "Michael Chen",
-    employeeInitials: "MC",
-    role: "Doctor",
-    time: "9:00 - 17:00",
-    type: "day" as ShiftType,
-    date: new Date(2023, 5, 12)
-  },
-  {
-    id: 3,
-    employeeName: "Sophia Rodriguez",
-    employeeInitials: "SR",
-    role: "Receptionist",
-    time: "14:00 - 22:00",
-    type: "evening" as ShiftType,
-    date: new Date(2023, 5, 13)
-  },
-  {
-    id: 4,
-    employeeName: "James Wilson",
-    employeeInitials: "JW",
-    role: "Security",
-    time: "22:00 - 6:00",
-    type: "night" as ShiftType,
-    date: new Date(2023, 5, 14)
-  },
-  {
-    id: 5,
-    employeeName: "Olivia Smith",
-    employeeInitials: "OS",
-    role: "Nurse",
-    time: "9:00 - 17:00",
-    type: "day" as ShiftType,
-    date: new Date(2023, 5, 14)
-  },
-  {
-    id: 6,
-    employeeName: "Noah Garcia",
-    employeeInitials: "NG",
-    role: "Doctor",
-    time: "14:00 - 22:00",
-    type: "evening" as ShiftType,
-    date: new Date(2023, 5, 15)
-  }
-];
+interface Shift {
+  id: number;
+  employeeName: string;
+  employeeInitials: string;
+  role: string;
+  time: string;
+  type: ShiftType;
+  date: Date;
+}
 
-export function Calendar() {
+interface CalendarProps {
+  shifts?: Shift[];
+}
+
+export function Calendar({ shifts = [] }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   
   // Generate dates for the current week
@@ -87,7 +43,10 @@ export function Calendar() {
   
   // Filter shifts for a specific day
   const getShiftsForDay = (date: Date) => {
-    return SHIFT_DATA.filter(shift => isSameDay(shift.date, date));
+    return shifts.filter(shift => {
+      const shiftDate = new Date(shift.date);
+      return isSameDay(shiftDate, date);
+    });
   };
   
   return (
