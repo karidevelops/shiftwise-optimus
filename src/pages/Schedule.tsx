@@ -30,54 +30,54 @@ const Schedule = () => {
   const [shifts, setShifts] = useState<Shift[]>([
     {
       id: 1,
-      employeeName: "Emma Johnson",
-      employeeInitials: "EJ",
-      role: "Nurse",
+      employeeName: "Matti Virtanen",
+      employeeInitials: "MV",
+      role: "Sairaanhoitaja",
       time: "6:00 - 14:00",
       type: "morning",
       date: new Date(2023, 5, 12)
     },
     {
       id: 2,
-      employeeName: "Michael Chen",
-      employeeInitials: "MC",
-      role: "Doctor",
+      employeeName: "Liisa Korhonen",
+      employeeInitials: "LK",
+      role: "Lääkäri",
       time: "9:00 - 17:00",
       type: "day",
       date: new Date(2023, 5, 12)
     },
     {
       id: 3,
-      employeeName: "Sophia Rodriguez",
-      employeeInitials: "SR",
-      role: "Receptionist",
+      employeeName: "Antti Mäkinen",
+      employeeInitials: "AM",
+      role: "Vastaanottovirkailija",
       time: "14:00 - 22:00",
       type: "evening",
       date: new Date(2023, 5, 13)
     },
     {
       id: 4,
-      employeeName: "James Wilson",
-      employeeInitials: "JW",
-      role: "Security",
+      employeeName: "Johanna Nieminen",
+      employeeInitials: "JN",
+      role: "Vartija",
       time: "22:00 - 6:00",
       type: "night",
       date: new Date(2023, 5, 14)
     },
     {
       id: 5,
-      employeeName: "Olivia Smith",
-      employeeInitials: "OS",
-      role: "Nurse",
+      employeeName: "Mikko Järvinen",
+      employeeInitials: "MJ",
+      role: "Sairaanhoitaja",
       time: "9:00 - 17:00",
       type: "day",
       date: new Date(2023, 5, 14)
     },
     {
       id: 6,
-      employeeName: "Noah Garcia",
-      employeeInitials: "NG",
-      role: "Doctor",
+      employeeName: "Laura Lahtinen",
+      employeeInitials: "LL",
+      role: "Lääkäri",
       time: "14:00 - 22:00",
       type: "evening",
       date: new Date(2023, 5, 15)

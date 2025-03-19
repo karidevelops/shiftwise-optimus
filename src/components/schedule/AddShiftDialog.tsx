@@ -43,12 +43,12 @@ import { Input } from "../ui/input";
 
 // Sample employee data
 const EMPLOYEES = [
-  { id: 1, name: "Emma Johnson", initials: "EJ", role: "Nurse" },
-  { id: 2, name: "Michael Chen", initials: "MC", role: "Doctor" },
-  { id: 3, name: "Sophia Rodriguez", initials: "SR", role: "Receptionist" },
-  { id: 4, name: "James Wilson", initials: "JW", role: "Security" },
-  { id: 5, name: "Olivia Smith", initials: "OS", role: "Nurse" },
-  { id: 6, name: "Noah Garcia", initials: "NG", role: "Doctor" },
+  { id: 1, name: "Matti Virtanen", initials: "MV", role: "Sairaanhoitaja" },
+  { id: 2, name: "Liisa Korhonen", initials: "LK", role: "Lääkäri" },
+  { id: 3, name: "Antti Mäkinen", initials: "AM", role: "Vastaanottovirkailija" },
+  { id: 4, name: "Johanna Nieminen", initials: "JN", role: "Vartija" },
+  { id: 5, name: "Mikko Järvinen", initials: "MJ", role: "Sairaanhoitaja" },
+  { id: 6, name: "Laura Lahtinen", initials: "LL", role: "Lääkäri" },
 ];
 
 // Sample shift types

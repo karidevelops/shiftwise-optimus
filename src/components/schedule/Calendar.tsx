@@ -57,12 +57,12 @@ export function Calendar({ shifts = [] }: CalendarProps) {
             {format(startOfCurrentWeek, "MMMM yyyy")}
           </h2>
           <p className="text-sm text-muted-foreground">
-            Week {format(startOfCurrentWeek, "w")}
+            Viikko {format(startOfCurrentWeek, "w")}
           </p>
         </div>
         <div className="flex items-center space-x-2">
           <Button variant="outline" size="sm" onClick={goToToday}>
-            Today
+            Tänään
           </Button>
           <Button variant="outline" size="icon" onClick={goToPreviousWeek}>
             <ChevronLeft className="h-4 w-4" />
