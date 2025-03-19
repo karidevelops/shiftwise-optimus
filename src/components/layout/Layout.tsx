@@ -74,25 +74,25 @@ export default function Layout({ children }: LayoutProps) {
             <nav className="space-y-1">
               <NavItem
                 icon={BarChart3}
-                label="Dashboard"
+                label="Kojelauta"
                 to="/"
                 active={isActive("/")}
               />
               <NavItem
                 icon={Calendar}
-                label="Schedule"
+                label="Aikataulu"
                 to="/schedule"
                 active={isActive("/schedule")}
               />
               <NavItem
                 icon={Users}
-                label="Employees"
+                label="Työntekijät"
                 to="/employees"
                 active={isActive("/employees")}
               />
               <NavItem
                 icon={Settings}
-                label="Settings"
+                label="Asetukset"
                 to="/settings"
                 active={isActive("/settings")}
               />
@@ -104,12 +104,12 @@ export default function Layout({ children }: LayoutProps) {
             <Separator className="my-4" />
             <div className="flex items-center gap-3 py-2">
               <Avatar className="h-9 w-9">
-                <AvatarImage src="/placeholder.svg" alt="User" />
-                <AvatarFallback>JD</AvatarFallback>
+                <AvatarImage src="/placeholder.svg" alt="Käyttäjä" />
+                <AvatarFallback>JM</AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
-                <span className="text-sm font-medium">John Doe</span>
-                <span className="text-xs text-muted-foreground">Administrator</span>
+                <span className="text-sm font-medium">Jaakko Mäkinen</span>
+                <span className="text-xs text-muted-foreground">Järjestelmänvalvoja</span>
               </div>
             </div>
           </div>
@@ -133,14 +133,14 @@ export default function Layout({ children }: LayoutProps) {
               ) : (
                 <Menu className="h-6 w-6" />
               )}
-              <span className="sr-only">Toggle menu</span>
+              <span className="sr-only">Vaihda valikko</span>
             </Button>
 
             {/* Search bar */}
             <div className="hidden md:flex max-w-md w-full relative ml-8">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search..."
+                placeholder="Haku..."
                 className="pl-10 bg-muted/50 border-none focus-visible:ring-1"
               />
             </div>
