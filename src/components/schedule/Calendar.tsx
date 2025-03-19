@@ -73,68 +73,58 @@ export function Calendar({ shifts = [] }: CalendarProps) {
         </div>
       </div>
       
-      <div className="grid grid-cols-7 border-b">
-        {weekDays.map((day, index) => {
-          const isToday = isSameDay(day, new Date());
-          return (
-            <div
-              key={index}
-              className={cn(
-                "p-2 text-center border-r last:border-r-0",
-                isToday && "bg-primary/5"
-              )}
-            >
-              <p className="text-xs text-muted-foreground uppercase">
-                {format(day, "EEE")}
-              </p>
-              <p className={cn(
-                "text-lg font-semibold",
-                isToday && "text-primary"
-              )}>
-                {format(day, "d")}
-              </p>
-            </div>
-          );
-        })}
-      </div>
-      
-      <div className="grid grid-cols-7 min-h-[400px]">
-        {weekDays.map((day, dayIndex) => {
-          const shiftsForDay = getShiftsForDay(day);
-          const isToday = isSameDay(day, new Date());
-          
-          return (
-            <div
-              key={dayIndex}
-              className={cn(
-                "border-r last:border-r-0 p-2",
-                isToday && "bg-primary/5"
-              )}
-            >
-              <ScrollArea className="h-[400px]">
-                <div className="space-y-2 p-1">
+      <ScrollArea className="h-[600px]">
+        <div className="divide-y">
+          {weekDays.map((day, dayIndex) => {
+            const shiftsForDay = getShiftsForDay(day);
+            const isToday = isSameDay(day, new Date());
+            
+            return (
+              <div 
+                key={dayIndex}
+                className={cn(
+                  "p-4",
+                  isToday && "bg-primary/5"
+                )}
+              >
+                <div className={cn(
+                  "flex items-center mb-3",
+                  isToday && "text-primary font-medium"
+                )}>
+                  <div className="w-12 text-center mr-3">
+                    <p className="text-xs text-muted-foreground uppercase">
+                      {format(day, "EEE")}
+                    </p>
+                    <p className="text-xl font-semibold">{format(day, "d")}</p>
+                  </div>
+                  <div className="flex-1 h-px bg-border"></div>
+                </div>
+                
+                <div className="pl-14">
                   {shiftsForDay.length > 0 ? (
-                    shiftsForDay.map((shift) => (
-                      <ShiftCard
-                        key={shift.id}
-                        employeeName={shift.employeeName}
-                        employeeInitials={shift.employeeInitials}
-                        role={shift.role}
-                        time={shift.time}
-                        type={shift.type}
-                      />
-                    ))
+                    <div className="space-y-2">
+                      {shiftsForDay.map((shift) => (
+                        <ShiftCard
+                          key={shift.id}
+                          employeeName={shift.employeeName}
+                          employeeInitials={shift.employeeInitials}
+                          role={shift.role}
+                          time={shift.time}
+                          type={shift.type}
+                        />
+                      ))}
+                    </div>
                   ) : (
-                    <div className="h-full flex items-center justify-center p-6">
-                      <p className="text-sm text-muted-foreground">No shifts</p>
+                    <div className="py-4 text-center text-sm text-muted-foreground">
+                      Ei työvuoroja
                     </div>
                   )}
                 </div>
-              </ScrollArea>
-            </div>
-          );
-        })}
-      </div>
+              </div>
+            );
+          })}
+        </div>
+      </ScrollArea>
     </div>
   );
 }
