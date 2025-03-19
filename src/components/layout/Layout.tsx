@@ -65,7 +65,7 @@ export default function Layout({ children }: LayoutProps) {
           {/* Logo */}
           <div className="px-6 mb-8">
             <h1 className="text-2xl font-semibold tracking-tight">
-              <span className="text-primary">Shift</span>Wise
+              <span className="text-primary">Repo</span>Shifts
             </h1>
           </div>
 
