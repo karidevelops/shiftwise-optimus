@@ -20,47 +20,47 @@ import {
   Legend,
 } from "recharts";
 
-// Sample data for charts
+// Esimerkkidata kaavioille
 const weeklyData = [
-  { name: "Mon", value: 12 },
-  { name: "Tue", value: 19 },
-  { name: "Wed", value: 15 },
-  { name: "Thu", value: 22 },
-  { name: "Fri", value: 26 },
-  { name: "Sat", value: 18 },
-  { name: "Sun", value: 10 },
+  { name: "Ma", value: 12 },
+  { name: "Ti", value: 19 },
+  { name: "Ke", value: 15 },
+  { name: "To", value: 22 },
+  { name: "Pe", value: 26 },
+  { name: "La", value: 18 },
+  { name: "Su", value: 10 },
 ];
 
 const monthlyData = [
-  { name: "Week 1", planned: 88, actual: 85 },
-  { name: "Week 2", planned: 92, actual: 90 },
-  { name: "Week 3", planned: 95, actual: 97 },
-  { name: "Week 4", planned: 90, actual: 86 },
+  { name: "Viikko 1", planned: 88, actual: 85 },
+  { name: "Viikko 2", planned: 92, actual: 90 },
+  { name: "Viikko 3", planned: 95, actual: 97 },
+  { name: "Viikko 4", planned: 90, actual: 86 },
 ];
 
-// Sample data for upcoming shifts
+// Esimerkkidata tuleville vuoroille
 const upcomingShifts = [
   {
     id: 1,
-    employeeName: "Emma Johnson",
-    employeeInitials: "EJ",
-    role: "Nurse",
+    employeeName: "Johanna Koskinen",
+    employeeInitials: "JK",
+    role: "Sairaanhoitaja",
     time: "6:00 - 14:00",
     type: "morning" as const,
   },
   {
     id: 2,
-    employeeName: "Michael Chen",
-    employeeInitials: "MC",
-    role: "Doctor",
+    employeeName: "Mikko Saarinen",
+    employeeInitials: "MS",
+    role: "Lääkäri",
     time: "9:00 - 17:00",
     type: "day" as const,
   },
   {
     id: 3,
-    employeeName: "Sophia Rodriguez",
-    employeeInitials: "SR",
-    role: "Receptionist",
+    employeeName: "Sanna Heikkinen",
+    employeeInitials: "SH",
+    role: "Vastaanottovirkailija",
     time: "14:00 - 22:00",
     type: "evening" as const,
   },
@@ -69,7 +69,7 @@ const upcomingShifts = [
 export function Dashboard() {
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Update time every minute
+  // Päivitä aika joka minuutti
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -81,9 +81,9 @@ export function Dashboard() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Kojelauta</h1>
           <p className="text-muted-foreground">
-            {currentTime.toLocaleDateString(undefined, {
+            {currentTime.toLocaleDateString('fi-FI', {
               weekday: "long",
               year: "numeric",
               month: "long",
@@ -94,44 +94,44 @@ export function Dashboard() {
         <div className="flex gap-2">
           <Button>
             <ClipboardList className="h-4 w-4 mr-2" />
-            Generate Report
+            Luo raportti
           </Button>
         </div>
       </div>
 
-      {/* Overview Cards */}
+      {/* Yleiskatsaus-kortit */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatCard
-          title="Total Employees"
+          title="Työntekijät yhteensä"
           value="36"
           icon={<Users className="h-5 w-5" />}
           trend={{ value: 8, isPositive: true }}
         />
         <StatCard
-          title="Scheduled Hours"
-          value="1,285"
+          title="Aikataulutetut tunnit"
+          value="1 285"
           icon={<Clock className="h-5 w-5" />}
           trend={{ value: 12, isPositive: true }}
         />
         <StatCard
-          title="Open Shifts"
+          title="Avoimet vuorot"
           value="7"
           icon={<Calendar className="h-5 w-5" />}
           trend={{ value: 3, isPositive: false }}
         />
         <StatCard
-          title="Employee Satisfaction"
+          title="Työntekijätyytyväisyys"
           value="92%"
           icon={<BarChart3 className="h-5 w-5" />}
           trend={{ value: 5, isPositive: true }}
         />
       </div>
 
-      {/* Charts Section */}
+      {/* Kaaviot */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="col-span-1 animate-fade-in">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-medium">Weekly Staff Coverage</CardTitle>
+            <CardTitle className="text-lg font-medium">Viikon henkilöstökattavuus</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={250}>
@@ -166,7 +166,7 @@ export function Dashboard() {
 
         <Card className="col-span-1 animate-fade-in">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-medium">Monthly Hours Analysis</CardTitle>
+            <CardTitle className="text-lg font-medium">Kuukauden tuntien analyysi</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={250}>
@@ -182,27 +182,27 @@ export function Dashboard() {
                   }} 
                 />
                 <Legend />
-                <Bar dataKey="planned" name="Planned Hours" fill="hsl(var(--primary))" />
-                <Bar dataKey="actual" name="Actual Hours" fill="hsl(var(--accent))" />
+                <Bar dataKey="planned" name="Suunnitellut tunnit" fill="hsl(var(--primary))" />
+                <Bar dataKey="actual" name="Toteutuneet tunnit" fill="hsl(var(--accent))" />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
 
-      {/* Bottom Row */}
+      {/* Alarivi */}
       <div className="grid gap-4 md:grid-cols-7">
-        {/* Today's Shifts */}
+        {/* Päivän vuorot */}
         <Card className="col-span-7 md:col-span-3 animate-fade-in">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-medium">Today's Shifts</CardTitle>
+            <CardTitle className="text-lg font-medium">Tämän päivän vuorot</CardTitle>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="upcoming">
               <TabsList className="mb-4">
-                <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-                <TabsTrigger value="ongoing">Ongoing</TabsTrigger>
-                <TabsTrigger value="completed">Completed</TabsTrigger>
+                <TabsTrigger value="upcoming">Tulevat</TabsTrigger>
+                <TabsTrigger value="ongoing">Käynnissä</TabsTrigger>
+                <TabsTrigger value="completed">Valmis</TabsTrigger>
               </TabsList>
               <TabsContent value="upcoming" className="space-y-3">
                 {upcomingShifts.map((shift) => (
@@ -216,29 +216,29 @@ export function Dashboard() {
                   />
                 ))}
                 <div className="mt-3 flex justify-center">
-                  <Button variant="outline" size="sm">View All</Button>
+                  <Button variant="outline" size="sm">Näytä kaikki</Button>
                 </div>
               </TabsContent>
               <TabsContent value="ongoing">
                 <div className="py-8 text-center text-muted-foreground">
                   <Clock className="mx-auto h-8 w-8 mb-2" />
-                  <p>No ongoing shifts</p>
+                  <p>Ei käynnissä olevia vuoroja</p>
                 </div>
               </TabsContent>
               <TabsContent value="completed">
                 <div className="py-8 text-center text-muted-foreground">
                   <ClipboardList className="mx-auto h-8 w-8 mb-2" />
-                  <p>No completed shifts today</p>
+                  <p>Ei valmiita vuoroja tänään</p>
                 </div>
               </TabsContent>
             </Tabs>
           </CardContent>
         </Card>
 
-        {/* Notifications & Tasks */}
+        {/* Ilmoitukset ja tehtävät */}
         <Card className="col-span-7 md:col-span-4 animate-fade-in">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-medium">Recent Activity</CardTitle>
+            <CardTitle className="text-lg font-medium">Viimeisimmät tapahtumat</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -250,11 +250,11 @@ export function Dashboard() {
                   <div className="h-full w-px bg-border"></div>
                 </div>
                 <div className="space-y-1 pt-1">
-                  <p className="text-sm font-medium">Shift assignment completed</p>
+                  <p className="text-sm font-medium">Työvuorojen jako valmis</p>
                   <p className="text-sm text-muted-foreground">
-                    Weekly schedule for 36 employees has been generated
+                    Viikkoaikataulu 36 työntekijälle on luotu
                   </p>
-                  <p className="text-xs text-muted-foreground">35 minutes ago</p>
+                  <p className="text-xs text-muted-foreground">35 minuuttia sitten</p>
                 </div>
               </div>
               <div className="flex">
@@ -265,11 +265,11 @@ export function Dashboard() {
                   <div className="h-full w-px bg-border"></div>
                 </div>
                 <div className="space-y-1 pt-1">
-                  <p className="text-sm font-medium">New shift request</p>
+                  <p className="text-sm font-medium">Uusi vuoropyyntö</p>
                   <p className="text-sm text-muted-foreground">
-                    Emma Johnson requested to swap shifts with Michael Chen
+                    Johanna Koskinen pyysi vaihtaa vuoroa Mikko Saarisen kanssa
                   </p>
-                  <p className="text-xs text-muted-foreground">2 hours ago</p>
+                  <p className="text-xs text-muted-foreground">2 tuntia sitten</p>
                 </div>
               </div>
               <div className="flex">
@@ -279,11 +279,11 @@ export function Dashboard() {
                   </div>
                 </div>
                 <div className="space-y-1 pt-1">
-                  <p className="text-sm font-medium">Schedule conflict detected</p>
+                  <p className="text-sm font-medium">Aikatauluristiriita havaittu</p>
                   <p className="text-sm text-muted-foreground">
-                    Overlap detected in Sophia Rodriguez's schedule
+                    Päällekkäisyys havaittu Sanna Heikkisen aikataulussa
                   </p>
-                  <p className="text-xs text-muted-foreground">4 hours ago</p>
+                  <p className="text-xs text-muted-foreground">4 tuntia sitten</p>
                 </div>
               </div>
             </div>

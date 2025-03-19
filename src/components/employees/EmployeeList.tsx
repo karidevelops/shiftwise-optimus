@@ -43,52 +43,52 @@ interface Employee {
 const EMPLOYEES_DATA: Employee[] = [
   {
     id: 1,
-    name: "Olivia Johnson",
-    initials: "OJ",
-    email: "olivia@example.com",
+    name: "Matti Virtanen",
+    initials: "MV",
+    email: "matti.virtanen@esimerkki.fi",
     phone: "+358 50 123 4567",
-    role: "Nurse",
-    department: "Emergency",
+    role: "Sairaanhoitaja",
+    department: "Päivystys",
     status: "active"
   },
   {
     id: 2,
-    name: "William Smith",
-    initials: "WS",
-    email: "william@example.com",
+    name: "Liisa Korhonen",
+    initials: "LK",
+    email: "liisa.korhonen@esimerkki.fi",
     phone: "+358 40 123 4567",
-    role: "Doctor",
-    department: "Surgery",
+    role: "Lääkäri",
+    department: "Kirurgia",
     status: "active"
   },
   {
     id: 3,
-    name: "Emma Wilson",
-    initials: "EW",
-    email: "emma@example.com",
+    name: "Antti Mäkinen",
+    initials: "AM",
+    email: "antti.makinen@esimerkki.fi",
     phone: "+358 45 123 4567",
-    role: "Nurse",
-    department: "Pediatrics",
+    role: "Sairaanhoitaja",
+    department: "Lastentaudit",
     status: "on-leave"
   },
   {
     id: 4,
-    name: "Noah Garcia",
-    initials: "NG",
-    email: "noah@example.com",
+    name: "Leena Nieminen",
+    initials: "LN",
+    email: "leena.nieminen@esimerkki.fi",
     phone: "+358 50 987 6543",
-    role: "Doctor",
-    department: "Cardiology",
+    role: "Lääkäri",
+    department: "Kardiologia",
     status: "active"
   },
   {
     id: 5,
-    name: "Sophia Martinez",
-    initials: "SM",
-    email: "sophia@example.com",
+    name: "Ville Järvinen",
+    initials: "VJ",
+    email: "ville.jarvinen@esimerkki.fi",
     phone: "+358 40 987 6543",
-    role: "Receptionist",
-    department: "Administration",
+    role: "Vastaanottovirkailija",
+    department: "Hallinto",
     status: "inactive"
   }
 ];
@@ -120,15 +120,15 @@ export function EmployeeList() {
     <div className="bg-card rounded-xl border shadow-sm overflow-hidden animate-fade-in">
       <div className="p-4 border-b flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold">Employees</h2>
+          <h2 className="text-lg font-semibold">Työntekijät</h2>
           <p className="text-sm text-muted-foreground">
-            Manage your staff and their details
+            Hallinnoi henkilöstöä ja heidän tietojaan
           </p>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative w-full md:w-64">
             <Input
-              placeholder="Search employees..."
+              placeholder="Etsi työntekijöitä..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full"
@@ -136,7 +136,7 @@ export function EmployeeList() {
           </div>
           <Button className="whitespace-nowrap animate-button-click">
             <UserPlus className="h-4 w-4 mr-2" />
-            Add Employee
+            Lisää työntekijä
           </Button>
         </div>
       </div>
@@ -145,11 +145,11 @@ export function EmployeeList() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Employee</TableHead>
-              <TableHead>Contact</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Department</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>Työntekijä</TableHead>
+              <TableHead>Yhteystiedot</TableHead>
+              <TableHead>Tehtävä</TableHead>
+              <TableHead>Osasto</TableHead>
+              <TableHead>Tila</TableHead>
               <TableHead className="w-[70px]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -182,8 +182,8 @@ export function EmployeeList() {
                   <TableCell>{employee.department}</TableCell>
                   <TableCell>
                     <Badge variant="outline" className={getStatusColor(employee.status)}>
-                      {employee.status === "on-leave" ? "On Leave" : 
-                        employee.status.charAt(0).toUpperCase() + employee.status.slice(1)}
+                      {employee.status === "on-leave" ? "Lomalla" : 
+                        employee.status === "active" ? "Aktiivinen" : "Poissa"}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -191,17 +191,17 @@ export function EmployeeList() {
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">
                           <MoreHorizontal className="h-4 w-4" />
-                          <span className="sr-only">Open menu</span>
+                          <span className="sr-only">Avaa valikko</span>
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem className="cursor-pointer">
                           <Edit2 className="h-4 w-4 mr-2" />
-                          Edit
+                          Muokkaa
                         </DropdownMenuItem>
                         <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600">
                           <Trash2 className="h-4 w-4 mr-2" />
-                          Delete
+                          Poista
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -213,7 +213,7 @@ export function EmployeeList() {
                 <TableCell colSpan={6} className="text-center h-24">
                   <User className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
                   <p className="text-muted-foreground">
-                    No employees found matching your search
+                    Hakuehdolla ei löytynyt työntekijöitä
                   </p>
                 </TableCell>
               </TableRow>

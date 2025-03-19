@@ -14,45 +14,45 @@ const Settings = () => {
     <Layout>
       <div className="space-y-6 animate-fade-in">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Asetukset</h1>
           <p className="text-muted-foreground">
-            Manage your application preferences
+            Hallitse sovelluksen asetuksia
           </p>
         </div>
 
         <Tabs defaultValue="general" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="general">General</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
-            <TabsTrigger value="scheduling">Scheduling</TabsTrigger>
-            <TabsTrigger value="integrations">Integrations</TabsTrigger>
+            <TabsTrigger value="general">Yleiset</TabsTrigger>
+            <TabsTrigger value="notifications">Ilmoitukset</TabsTrigger>
+            <TabsTrigger value="scheduling">Työvuorosuunnittelu</TabsTrigger>
+            <TabsTrigger value="integrations">Integraatiot</TabsTrigger>
           </TabsList>
           
           <TabsContent value="general" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>General Settings</CardTitle>
+                <CardTitle>Yleiset asetukset</CardTitle>
                 <CardDescription>
-                  Configure your application preferences
+                  Määritä sovelluksen asetukset
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="company_name">Company Name</Label>
-                  <Input id="company_name" placeholder="Your Company Name" defaultValue="HealthTech Inc." />
+                  <Label htmlFor="company_name">Yrityksen nimi</Label>
+                  <Input id="company_name" placeholder="Yrityksesi nimi" defaultValue="TerveysTeknologia Oy" />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="timezone">Timezone</Label>
+                  <Label htmlFor="timezone">Aikavyöhyke</Label>
                   <Select defaultValue="europe-helsinki">
                     <SelectTrigger id="timezone">
-                      <SelectValue placeholder="Select timezone" />
+                      <SelectValue placeholder="Valitse aikavyöhyke" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="europe-helsinki">Europe/Helsinki (GMT+3)</SelectItem>
-                      <SelectItem value="europe-london">Europe/London (GMT+1)</SelectItem>
-                      <SelectItem value="america-new_york">America/New York (GMT-4)</SelectItem>
-                      <SelectItem value="asia-tokyo">Asia/Tokyo (GMT+9)</SelectItem>
+                      <SelectItem value="europe-helsinki">Eurooppa/Helsinki (GMT+3)</SelectItem>
+                      <SelectItem value="europe-london">Eurooppa/Lontoo (GMT+1)</SelectItem>
+                      <SelectItem value="america-new_york">Amerikka/New York (GMT-4)</SelectItem>
+                      <SelectItem value="asia-tokyo">Aasia/Tokio (GMT+9)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -60,32 +60,32 @@ const Settings = () => {
                 <Separator />
                 
                 <div className="space-y-4">
-                  <Label>Date & Time Format</Label>
+                  <Label>Päivämäärä ja aika</Label>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="date_format">Date Format</Label>
+                      <Label htmlFor="date_format">Päivämäärän muoto</Label>
                       <Select defaultValue="dd-mm-yyyy">
                         <SelectTrigger id="date_format">
-                          <SelectValue placeholder="Select date format" />
+                          <SelectValue placeholder="Valitse päivämäärän muoto" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="dd-mm-yyyy">DD-MM-YYYY</SelectItem>
-                          <SelectItem value="mm-dd-yyyy">MM-DD-YYYY</SelectItem>
-                          <SelectItem value="yyyy-mm-dd">YYYY-MM-DD</SelectItem>
+                          <SelectItem value="dd-mm-yyyy">PP-KK-VVVV</SelectItem>
+                          <SelectItem value="mm-dd-yyyy">KK-PP-VVVV</SelectItem>
+                          <SelectItem value="yyyy-mm-dd">VVVV-KK-PP</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="time_format">Time Format</Label>
+                      <Label htmlFor="time_format">Ajan muoto</Label>
                       <Select defaultValue="24h">
                         <SelectTrigger id="time_format">
-                          <SelectValue placeholder="Select time format" />
+                          <SelectValue placeholder="Valitse ajan muoto" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="24h">24-hour (14:30)</SelectItem>
-                          <SelectItem value="12h">12-hour (2:30 PM)</SelectItem>
+                          <SelectItem value="24h">24-tuntinen (14:30)</SelectItem>
+                          <SelectItem value="12h">12-tuntinen (2:30 PM)</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -96,15 +96,15 @@ const Settings = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label htmlFor="automatic_logout">Automatic Logout</Label>
+                    <Label htmlFor="automatic_logout">Automaattinen uloskirjautuminen</Label>
                     <p className="text-sm text-muted-foreground">
-                      Automatically log out after 30 minutes of inactivity
+                      Kirjaudu automaattisesti ulos 30 minuutin käyttämättömyyden jälkeen
                     </p>
                   </div>
                   <Switch id="automatic_logout" defaultChecked />
                 </div>
                 
-                <Button>Save Changes</Button>
+                <Button>Tallenna muutokset</Button>
               </CardContent>
             </Card>
           </TabsContent>
@@ -112,18 +112,18 @@ const Settings = () => {
           <TabsContent value="notifications" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Notification Settings</CardTitle>
+                <CardTitle>Ilmoitusasetukset</CardTitle>
                 <CardDescription>
-                  Configure how you receive notifications
+                  Määritä miten vastaanotat ilmoituksia
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
-                      <Label htmlFor="email_notifications">Email Notifications</Label>
+                      <Label htmlFor="email_notifications">Sähköposti-ilmoitukset</Label>
                       <p className="text-sm text-muted-foreground">
-                        Receive notifications via email
+                        Vastaanota ilmoituksia sähköpostitse
                       </p>
                     </div>
                     <Switch id="email_notifications" defaultChecked />
@@ -131,9 +131,9 @@ const Settings = () => {
                   
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
-                      <Label htmlFor="push_notifications">Push Notifications</Label>
+                      <Label htmlFor="push_notifications">Push-ilmoitukset</Label>
                       <p className="text-sm text-muted-foreground">
-                        Receive push notifications in browser
+                        Vastaanota push-ilmoituksia selaimessa
                       </p>
                     </div>
                     <Switch id="push_notifications" defaultChecked />
@@ -141,9 +141,9 @@ const Settings = () => {
                   
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
-                      <Label htmlFor="sms_notifications">SMS Notifications</Label>
+                      <Label htmlFor="sms_notifications">SMS-ilmoitukset</Label>
                       <p className="text-sm text-muted-foreground">
-                        Receive notifications via SMS
+                        Vastaanota ilmoituksia tekstiviestitse
                       </p>
                     </div>
                     <Switch id="sms_notifications" />
@@ -153,30 +153,30 @@ const Settings = () => {
                 <Separator />
                 
                 <div className="space-y-4">
-                  <h3 className="font-medium">Notification Events</h3>
+                  <h3 className="font-medium">Ilmoitustapahtumat</h3>
                   
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="shift_reminders">Shift Reminders</Label>
+                    <Label htmlFor="shift_reminders">Vuoromuistutukset</Label>
                     <Switch id="shift_reminders" defaultChecked />
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="schedule_changes">Schedule Changes</Label>
+                    <Label htmlFor="schedule_changes">Aikataulumuutokset</Label>
                     <Switch id="schedule_changes" defaultChecked />
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="shift_requests">Shift Requests</Label>
+                    <Label htmlFor="shift_requests">Vuorotoiveet</Label>
                     <Switch id="shift_requests" defaultChecked />
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="time_off_requests">Time Off Requests</Label>
+                    <Label htmlFor="time_off_requests">Vapaa-aikapyynnöt</Label>
                     <Switch id="time_off_requests" defaultChecked />
                   </div>
                 </div>
                 
-                <Button>Save Changes</Button>
+                <Button>Tallenna muutokset</Button>
               </CardContent>
             </Card>
           </TabsContent>
@@ -184,36 +184,36 @@ const Settings = () => {
           <TabsContent value="scheduling" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Scheduling Settings</CardTitle>
+                <CardTitle>Työvuorosuunnittelun asetukset</CardTitle>
                 <CardDescription>
-                  Configure how scheduling works
+                  Määritä miten työvuorosuunnittelu toimii
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="schedule_view">Default Schedule View</Label>
+                  <Label htmlFor="schedule_view">Oletusnäkymä</Label>
                   <Select defaultValue="week">
                     <SelectTrigger id="schedule_view">
-                      <SelectValue placeholder="Select default view" />
+                      <SelectValue placeholder="Valitse oletusnäkymä" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="day">Day</SelectItem>
-                      <SelectItem value="week">Week</SelectItem>
-                      <SelectItem value="month">Month</SelectItem>
+                      <SelectItem value="day">Päivä</SelectItem>
+                      <SelectItem value="week">Viikko</SelectItem>
+                      <SelectItem value="month">Kuukausi</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="first_day">First Day of Week</Label>
+                  <Label htmlFor="first_day">Viikon ensimmäinen päivä</Label>
                   <Select defaultValue="monday">
                     <SelectTrigger id="first_day">
-                      <SelectValue placeholder="Select first day" />
+                      <SelectValue placeholder="Valitse ensimmäinen päivä" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="monday">Monday</SelectItem>
-                      <SelectItem value="sunday">Sunday</SelectItem>
-                      <SelectItem value="saturday">Saturday</SelectItem>
+                      <SelectItem value="monday">Maanantai</SelectItem>
+                      <SelectItem value="sunday">Sunnuntai</SelectItem>
+                      <SelectItem value="saturday">Lauantai</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -222,9 +222,9 @@ const Settings = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label htmlFor="auto_scheduling">Automatic Scheduling</Label>
+                    <Label htmlFor="auto_scheduling">Automaattinen työvuorosuunnittelu</Label>
                     <p className="text-sm text-muted-foreground">
-                      Enable AI-powered automatic shift assignment
+                      Ota käyttöön tekoälyllä toimiva automaattinen vuorojako
                     </p>
                   </div>
                   <Switch id="auto_scheduling" defaultChecked />
@@ -232,9 +232,9 @@ const Settings = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label htmlFor="conflict_detection">Conflict Detection</Label>
+                    <Label htmlFor="conflict_detection">Konfliktien tunnistus</Label>
                     <p className="text-sm text-muted-foreground">
-                      Automatically detect scheduling conflicts
+                      Tunnista automaattisesti työvuorojen päällekkäisyydet
                     </p>
                   </div>
                   <Switch id="conflict_detection" defaultChecked />
@@ -242,15 +242,15 @@ const Settings = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label htmlFor="employee_requests">Allow Employee Requests</Label>
+                    <Label htmlFor="employee_requests">Salli työntekijöiden pyynnöt</Label>
                     <p className="text-sm text-muted-foreground">
-                      Let employees request shifts and time off
+                      Anna työntekijöiden pyytää vuoroja ja vapaita
                     </p>
                   </div>
                   <Switch id="employee_requests" defaultChecked />
                 </div>
                 
-                <Button>Save Changes</Button>
+                <Button>Tallenna muutokset</Button>
               </CardContent>
             </Card>
           </TabsContent>
@@ -258,55 +258,55 @@ const Settings = () => {
           <TabsContent value="integrations" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Integrations</CardTitle>
+                <CardTitle>Integraatiot</CardTitle>
                 <CardDescription>
-                  Connect with other systems
+                  Yhdistä muihin järjestelmiin
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
-                      <Label>Google Calendar</Label>
+                      <Label>Google Kalenteri</Label>
                       <p className="text-sm text-muted-foreground">
-                        Sync shifts with Google Calendar
+                        Synkronoi vuorot Google Kalenterin kanssa
                       </p>
                     </div>
-                    <Button variant="outline">Connect</Button>
+                    <Button variant="outline">Yhdistä</Button>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
                       <Label>Microsoft 365</Label>
                       <p className="text-sm text-muted-foreground">
-                        Sync with Outlook calendar
+                        Synkronoi Outlook-kalenterin kanssa
                       </p>
                     </div>
-                    <Button variant="outline">Connect</Button>
+                    <Button variant="outline">Yhdistä</Button>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
-                      <Label>Payroll System</Label>
+                      <Label>Palkkajärjestelmä</Label>
                       <p className="text-sm text-muted-foreground">
-                        Export timesheet data to payroll
+                        Vie työaikatiedot palkkahallintoon
                       </p>
                     </div>
-                    <Button variant="outline">Connect</Button>
+                    <Button variant="outline">Yhdistä</Button>
                   </div>
                 </div>
                 
                 <Separator />
                 
                 <div className="space-y-2">
-                  <Label htmlFor="api_key">API Key</Label>
+                  <Label htmlFor="api_key">API-avain</Label>
                   <div className="flex gap-2">
                     <Input id="api_key" type="password" value="••••••••••••••••••••••" readOnly />
-                    <Button variant="outline">Copy</Button>
-                    <Button variant="outline">Regenerate</Button>
+                    <Button variant="outline">Kopioi</Button>
+                    <Button variant="outline">Luo uusi</Button>
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Use this API key to access the ShiftWise API
+                    Käytä tätä API-avainta käyttääksesi VuoroVelho-rajapintaa
                   </p>
                 </div>
               </CardContent>

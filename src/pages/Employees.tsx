@@ -7,9 +7,9 @@ const Employees = () => {
     <Layout>
       <div className="space-y-6 animate-fade-in">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Employees</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Työntekijät</h1>
           <p className="text-muted-foreground">
-            Manage your staff and their information
+            Hallinnoi henkilökuntaa ja heidän tietojaan
           </p>
         </div>
 
