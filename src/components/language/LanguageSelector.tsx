@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Globe } from "lucide-react";
+import { Flag } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,12 +17,13 @@ interface LanguageOption {
   value: Language;
   label: string;
   flag: string;
+  iconColor: string;
 }
 
 const languages: LanguageOption[] = [
-  { value: "fi", label: "Suomi", flag: "🇫🇮" },
-  { value: "en", label: "English", flag: "🇬🇧" },
-  { value: "sv", label: "Svenska", flag: "🇸🇪" },
+  { value: "fi", label: "Suomi", flag: "🇫🇮", iconColor: "#003580" }, // Finnish blue
+  { value: "en", label: "English", flag: "🇬🇧", iconColor: "#012169" }, // UK blue
+  { value: "sv", label: "Svenska", flag: "🇸🇪", iconColor: "#006AA7" }, // Swedish blue
 ];
 
 interface LanguageSelectorProps {
@@ -49,6 +50,7 @@ const LanguageSelector = ({ className }: LanguageSelectorProps) => {
           size="sm" 
           className={cn("flex items-center gap-2 h-9 px-2", className)}
         >
+          <Flag className="h-4 w-4" color={current.iconColor} />
           <span className="text-lg">{current.flag}</span>
         </Button>
       </DropdownMenuTrigger>
@@ -58,10 +60,11 @@ const LanguageSelector = ({ className }: LanguageSelectorProps) => {
             key={language.value}
             onClick={() => handleLanguageChange(language.value)}
             className={cn(
-              "cursor-pointer",
+              "cursor-pointer flex items-center gap-2",
               currentLanguage === language.value && "bg-muted font-medium"
             )}
           >
+            <Flag className="h-4 w-4" color={language.iconColor} />
             <span className="text-lg">{language.flag}</span>
           </DropdownMenuItem>
         ))}
