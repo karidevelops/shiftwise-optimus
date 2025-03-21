@@ -14,6 +14,7 @@ import { AddShiftDialog } from "@/components/schedule/AddShiftDialog";
 import { EmployeeShiftList } from "@/components/schedule/EmployeeShiftList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShiftType } from "@/components/schedule/ShiftCard";
+import { toast } from "sonner";
 
 // Define the shift interface
 interface Shift {
@@ -85,10 +86,58 @@ const Schedule = () => {
   ]);
   
   const [isAddShiftOpen, setIsAddShiftOpen] = useState(false);
+  const [currentEditingShift, setCurrentEditingShift] = useState<Shift | null>(null);
   const [viewMode, setViewMode] = useState<"calendar" | "list">("calendar");
   
   const handleAddShift = (newShift: Shift) => {
     setShifts((prevShifts) => [...prevShifts, newShift]);
+  };
+
+  const handleEditShift = (shift: Shift) => {
+    setCurrentEditingShift(shift);
+    setIsAddShiftOpen(true);
+    toast.info("Muokataan vuoroa", {
+      description: `${shift.employeeName}: ${shift.time}`
+    });
+  };
+
+  const handleDeleteShift = (shiftId: number) => {
+    setShifts(prevShifts => prevShifts.filter(shift => shift.id !== shiftId));
+    toast.success("Vuoro poistettu", {
+      description: "Työvuoro on poistettu onnistuneesti."
+    });
+  };
+
+  const handleChangeEmployee = (shiftId: number, newEmployeeId: number) => {
+    // Find the employee from a predefined list
+    const EMPLOYEES = [
+      { id: 1, name: "Matti Virtanen", initials: "MV", role: "Sairaanhoitaja" },
+      { id: 2, name: "Liisa Korhonen", initials: "LK", role: "Lääkäri" },
+      { id: 3, name: "Antti Mäkinen", initials: "AM", role: "Vastaanottovirkailija" },
+      { id: 4, name: "Johanna Nieminen", initials: "JN", role: "Vartija" },
+      { id: 5, name: "Mikko Järvinen", initials: "MJ", role: "Sairaanhoitaja" },
+      { id: 6, name: "Laura Lahtinen", initials: "LL", role: "Lääkäri" },
+    ];
+    
+    const newEmployee = EMPLOYEES.find(emp => emp.id === newEmployeeId);
+    if (!newEmployee) return;
+    
+    setShifts(prevShifts => 
+      prevShifts.map(shift => 
+        shift.id === shiftId 
+          ? {
+              ...shift,
+              employeeName: newEmployee.name,
+              employeeInitials: newEmployee.initials,
+              role: newEmployee.role
+            }
+          : shift
+      )
+    );
+    
+    toast.success("Työntekijä vaihdettu", {
+      description: `Uusi työntekijä: ${newEmployee.name}`
+    });
   };
 
   return (
@@ -124,7 +173,10 @@ const Schedule = () => {
             </Tabs>
             <Button 
               className="ml-auto animate-button-click"
-              onClick={() => setIsAddShiftOpen(true)}
+              onClick={() => {
+                setCurrentEditingShift(null);
+                setIsAddShiftOpen(true);
+              }}
             >
               <UserPlus className="h-4 w-4 mr-2" />
               Lisää vuoro
@@ -134,7 +186,12 @@ const Schedule = () => {
 
         <Tabs value={viewMode} className="space-y-6">
           <TabsContent value="calendar" className="mt-0 space-y-6">
-            <Calendar shifts={shifts} />
+            <Calendar 
+              shifts={shifts} 
+              onEditShift={handleEditShift}
+              onDeleteShift={handleDeleteShift}
+              onChangeEmployee={handleChangeEmployee}
+            />
           </TabsContent>
           <TabsContent value="list" className="mt-0 space-y-6">
             <EmployeeShiftList shifts={shifts} />
@@ -152,6 +209,7 @@ const Schedule = () => {
         open={isAddShiftOpen} 
         onOpenChange={setIsAddShiftOpen}
         onAddShift={handleAddShift}
+        editingShift={currentEditingShift}
       />
     </Layout>
   );

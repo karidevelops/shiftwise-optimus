@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { CalendarIcon, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -69,13 +69,26 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+interface Shift {
+  id: number;
+  employeeName: string;
+  employeeInitials: string;
+  role: string;
+  time: string;
+  type: ShiftType;
+  date: Date;
+}
+
 interface AddShiftDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAddShift: (shiftData: any) => void;
+  editingShift?: Shift | null;
 }
 
-export function AddShiftDialog({ open, onOpenChange, onAddShift }: AddShiftDialogProps) {
+export function AddShiftDialog({ open, onOpenChange, onAddShift, editingShift }: AddShiftDialogProps) {
+  const isEditing = !!editingShift;
+  
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -84,6 +97,36 @@ export function AddShiftDialog({ open, onOpenChange, onAddShift }: AddShiftDialo
     },
   });
 
+  // Update form values when editing an existing shift
+  useEffect(() => {
+    if (editingShift) {
+      // Extract employee ID
+      const employeeId = EMPLOYEES.find(emp => emp.name === editingShift.employeeName)?.id || 1;
+      
+      // Extract time values if possible
+      let startTime = "";
+      let endTime = "";
+      const timeParts = editingShift.time.split(" - ");
+      if (timeParts.length === 2) {
+        startTime = timeParts[0];
+        endTime = timeParts[1];
+      }
+      
+      form.reset({
+        employeeId,
+        shiftType: editingShift.type,
+        date: new Date(editingShift.date),
+        startTime,
+        endTime
+      });
+    } else {
+      form.reset({
+        startTime: "",
+        endTime: "",
+      });
+    }
+  }, [editingShift, form]);
+
   const handleAddShift = (data: FormValues) => {
     const employee = EMPLOYEES.find((emp) => emp.id === data.employeeId);
     const shiftType = SHIFT_TYPES.find((type) => type.id === data.shiftType);
@@ -91,7 +134,7 @@ export function AddShiftDialog({ open, onOpenChange, onAddShift }: AddShiftDialo
     if (!employee || !shiftType) return;
     
     const shiftData = {
-      id: Math.floor(Math.random() * 1000),
+      id: editingShift ? editingShift.id : Math.floor(Math.random() * 1000),
       employeeName: employee.name,
       employeeInitials: employee.initials,
       role: employee.role,
@@ -106,7 +149,7 @@ export function AddShiftDialog({ open, onOpenChange, onAddShift }: AddShiftDialo
     form.reset();
     onOpenChange(false);
     
-    toast.success("Vuoro lisätty onnistuneesti", {
+    toast.success(isEditing ? "Vuoro päivitetty onnistuneesti" : "Vuoro lisätty onnistuneesti", {
       description: `${employee.name}: ${format(data.date, "dd.MM.yyyy")} ${shiftData.time}`,
     });
   };
@@ -117,9 +160,11 @@ export function AddShiftDialog({ open, onOpenChange, onAddShift }: AddShiftDialo
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Lisää uusi työvuoro</DialogTitle>
+          <DialogTitle>{isEditing ? "Muokkaa työvuoroa" : "Lisää uusi työvuoro"}</DialogTitle>
           <DialogDescription>
-            Määritä työntekijän työvuoro. Täytä kaikki pakolliset kentät.
+            {isEditing 
+              ? "Muokkaa työntekijän työvuoroa. Täytä kaikki pakolliset kentät." 
+              : "Määritä työntekijän työvuoro. Täytä kaikki pakolliset kentät."}
           </DialogDescription>
         </DialogHeader>
         
@@ -134,6 +179,7 @@ export function AddShiftDialog({ open, onOpenChange, onAddShift }: AddShiftDialo
                   <Select
                     onValueChange={(value) => field.onChange(parseInt(value))}
                     defaultValue={field.value?.toString()}
+                    value={field.value?.toString()}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -161,7 +207,7 @@ export function AddShiftDialog({ open, onOpenChange, onAddShift }: AddShiftDialo
                   <FormLabel>Vuorotyyppi</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -262,7 +308,7 @@ export function AddShiftDialog({ open, onOpenChange, onAddShift }: AddShiftDialo
               <Button variant="outline" type="button" onClick={() => onOpenChange(false)}>
                 Peruuta
               </Button>
-              <Button type="submit">Lisää vuoro</Button>
+              <Button type="submit">{isEditing ? "Tallenna muutokset" : "Lisää vuoro"}</Button>
             </DialogFooter>
           </form>
         </Form>
